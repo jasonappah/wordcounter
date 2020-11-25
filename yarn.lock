@@ -90,6 +90,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@geist-ui/react@^2.1.0-canary.2":
+  version "2.1.0-canary.2"
+  resolved "https://registry.yarnpkg.com/@geist-ui/react/-/react-2.1.0-canary.2.tgz#cc90f193bd41c99e880413cda2dd867d43ef0063"
+  integrity sha512-w5MHkeU6IE8H3NRYnOwQ2b/OtFHcvIEKkXliYeBwbK0upm1GAmxwjlaQliOyzahmyUOScJb/Lgu8cHY/SmwZjw==
+  dependencies:
+    styled-jsx "^3.2.5"
+
 "@hapi/accept@5.0.1":
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/@hapi/accept/-/accept-5.0.1.tgz#068553e867f0f63225a506ed74e899441af53e10"
@@ -3558,7 +3565,7 @@ style-loader@1.2.1:
     loader-utils "^2.0.0"
     schema-utils "^2.6.6"
 
-styled-jsx@3.3.2:
+styled-jsx@3.3.2, styled-jsx@^3.2.5:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/styled-jsx/-/styled-jsx-3.3.2.tgz#2474601a26670a6049fb4d3f94bd91695b3ce018"
   integrity sha512-daAkGd5mqhbBhLd6jYAjYBa9LpxYCzsgo/f6qzPdFxVB8yoGbhxvzQgkC0pfmCVvW3JuAEBn0UzFLBfkHVZG1g==

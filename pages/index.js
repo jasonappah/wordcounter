@@ -1,65 +1,74 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+// lol this whole thing probably could be done in react but ssr go brrr
+
+import Head from "next/head";
+import { useState } from "react";
+import { Page, Textarea, Text, Link, Grid, Spacer } from "@geist-ui/react";
 
 export default function Home() {
+  const [text, setText] = useState({
+    "chars": 0,
+    "words": 0,
+    "sentences": 0
+  });
+  function onChange(e) {
+    const temp = e.target.value;
+    setText({
+      chars: temp.length,
+      // i love/hate regex but its kinda cool when it works.
+      // s/o https://regexr.com/
+      words: (temp.split(/(!+|\?+|\.+| +)/).length-1)/2,
+      sentences: (temp.split(/(!+|\?+|\.+)/).length - 1)/2,
+    });
+  }
   return (
-    <div className={styles.container}>
+    <Page>
       <Head>
-        <title>Create Next App</title>
+        <title>Word Counter</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
+          rel="stylesheet"
+        ></link>
       </Head>
+      <Page.Header>
+        <Text h1>Word Count.</Text>
+      </Page.Header>
+      <Page.Content>
+        <Textarea
+          onChange={onChange}
+          width="100%"
+          placeholder="Enter your text here."
+        />
+        <Grid.Container gap={2} justify="center">
+          <Grid xs>
+          <Info noun="character" no={text.chars}></Info>
+          </Grid>
+          <Grid xs>
+          <Info noun="word" no={text.words}></Info>
+          </Grid>
+          <Grid xs>
+            <Info noun="sentence" no={text.sentences}></Info>
+          </Grid>
+        </Grid.Container>
+      </Page.Content>
+      <Page.Footer>
+        <Text>
+          Built by <Link href="https://jasonaa.me/g">@jasonappah</Link>
+        </Text>
+        <Spacer></Spacer>
+      </Page.Footer>
+    </Page>
+  );
+}
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+function Info(props) {
+  const noun = props.noun || "";
+  const no = props.no || 0
+  console.log(props.no)
+  return (
+    <Text>
+      {no} {noun}{no == 1 ? "" : "s"}.
+    </Text>
+  );
 }

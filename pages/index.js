@@ -1,7 +1,5 @@
 // lol this whole thing probably could be done in react but ssr go brrr
 
-// feat!: a lot of things: enabled saving and loading text to browser's localStorage, added copy to clipboard button and light/dark mode switcher. also made everything slightly less ugly
-
 import Head from "next/head";
 import { useState } from "react";
 import {

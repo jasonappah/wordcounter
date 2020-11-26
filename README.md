@@ -1,5 +1,6 @@
 # wordcounter
-Next.js app to display the word count of given text. I probably could've done this in React or just vanilla JS but I wanted to get familiar with Next.js.
+
+Next.js app to display the word count of given text. I probably could've done this in React or just vanilla JS but I wanted to get familiar with Next.js. I'm using Geist UI for most of the styling and icons.
 
 Try it out at [wc.jasonaa.me](https://wc.jasonaa.me)!
 
@@ -15,6 +16,7 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
+~ # yarn is best ~
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

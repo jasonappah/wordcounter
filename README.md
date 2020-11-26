@@ -1,8 +1,6 @@
 # wordcounter
 Next.js app to display the word count of given text. I probably could've done this in React or just vanilla JS but I wanted to get familiar with Next.js.
 
-Below this is all that default `create-next-app` stuff.
-
 Try it out at [wc.jasonaa.me](https://wc.jasonaa.me)!
 
 ---

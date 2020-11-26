@@ -21,6 +21,8 @@ import {
 } from "@geist-ui/react";
 import { Copy, Github } from "@geist-ui/react-icons";
 
+const metaImg =
+  "https://f000.backblazeb2.com/file/jasonaa-static/img/wordcounter.png";
 const center = { textAlign: "center" };
 
 export default function Home(props) {
@@ -75,6 +77,29 @@ export default function Home(props) {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
           rel="stylesheet"
         ></link>
+        <meta name="title" content="Word Counter" />
+        <meta
+          name="description"
+          content="Keep track of your document's word count!"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://wc.jasonaa.me/" />
+        <meta property="og:title" content="Word Counter" />
+        <meta
+          property="og:description"
+          content="Keep track of your document's word count!"
+        />
+        <meta property="og:image" content={metaImg} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://wc.jasonaa.me/" />
+        <meta property="twitter:title" content="Word Counter" />
+        <meta
+          property="twitter:description"
+          content="Keep track of your document's word count!"
+        />
+        <meta property="twitter:image" content={metaImg} />
       </Head>
       <Col align="middle">
         <Page.Header>

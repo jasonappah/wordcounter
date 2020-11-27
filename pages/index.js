@@ -41,11 +41,13 @@ export default function Home(props) {
     const temp = e.target.value;
     setText(temp);
     localStorage.setItem("text", temp);
+    const tmp = temp.split(/([A-z])+/) || [];
     setStats({
       chars: temp.length,
       // i love/hate regex but its kinda cool when it works.
       // s/o https://regexr.com/
-      words: (temp.split(/(!+|\?+|\.+| +)/).length - 1) / 2,
+      // words: (temp.split(/(!+|\?+|\.+| +)/).length - 1) / 2,
+      words: (tmp.length - 1) / 2,
       sentences: (temp.split(/(!+|\?+|\.+)/).length - 1) / 2,
     });
     localStorage.setItem("stats", JSON.stringify(textStats));

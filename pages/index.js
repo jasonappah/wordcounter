@@ -35,7 +35,7 @@ export default function Home(props) {
     sentences: 0,
   };
 
-  const [text, setText] = useState(getTextFromStorage());
+  const [text, setText] = useState(getTextFromStorage() || "");
   const [textStats, setStats] = useState(defaultStats);
   function onChange(e) {
     const temp = e.target.value;

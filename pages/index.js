@@ -161,7 +161,7 @@ export default function Home(props) {
           </Grid.Container>
         </Page.Content>
 
-        <Row justify="center">
+        <Row justify="center" style={{ margin: "1em" }}>
           <User
             src="https://gravatar.com/avatar/d35776f3bec9c6459903f6a3204b63e4"
             name="Built by"

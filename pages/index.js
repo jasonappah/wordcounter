@@ -46,7 +46,6 @@ export default function Home(props) {
       chars: temp.length,
       // i love/hate regex but its kinda cool when it works.
       // s/o https://regexr.com/
-      // words: (temp.split(/(!+|\?+|\.+| +)/).length - 1) / 2,
       words: (tmp.length - 1) / 2,
       sentences: (temp.split(/(!+|\?+|\.+)/).length - 1) / 2,
     });

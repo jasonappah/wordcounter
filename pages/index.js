@@ -113,13 +113,14 @@ export default function Home(props) {
             every edit.
           </Text>
         </Page.Header>
-        <Page.Content>
+        <Page.Content style={{padding: "calc(1pt * 2.5) 0"}}>
           <Textarea
             status="success"
             id="textarea"
             onChange={onChange}
             value={text}
             width="100%"
+            minHeight="30em"
             placeholder="Enter your text here."
           />
           <Grid.Container alignItems="center" justify="space-evenly">

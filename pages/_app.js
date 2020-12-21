@@ -10,24 +10,25 @@ function getTheme() {
     return "light"
 }
 
-function MyApp ({ Component, pageProps }) {
-  const [themeType, setThemeType] = useState(getTheme())
-  const switchThemes = () => {
-    const newTheme = themeType === 'dark' ? 'light' : 'dark'
-    setThemeType(newTheme)
-    if (typeof Storage !== 'undefined') { window.localStorage.setItem('preferredTheme', newTheme) }
-  }
-  return (
-		<GeistProvider theme={{ type: themeType }}>
-			<CssBaseline />
-			<Component
-				{...pageProps}
-				themeToggle={switchThemes}
-				currentTheme={themeType}
-			/>
-		</GeistProvider>
-  )
-
+function MyApp({Component, pageProps}) {
+    const [themeType, setThemeType] = useState(getTheme())
+    const switchThemes = () => {
+        const newTheme = themeType === "dark" ? "light" : "dark"
+        setThemeType(newTheme)
+        if (typeof Storage !== "undefined") {
+            window.localStorage.setItem("preferredTheme", newTheme)
+        }
+    }
+    return (
+        <GeistProvider theme={{type: themeType}}>
+            <CssBaseline />
+            <Component
+                {...pageProps}
+                themeToggle={switchThemes}
+                currentTheme={themeType}
+            />
+        </GeistProvider>
+    )
 }
 
 export default MyApp

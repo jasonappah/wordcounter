@@ -19,7 +19,7 @@ import {
     useTheme,
     Row
 } from "@geist-ui/react"
-import {Copy, Github} from "@geist-ui/react-icons"
+import {Copy, Download, Github} from "@geist-ui/react-icons"
 
 const metaImg = "https://f000.backblazeb2.com/file/jasonaa-static/img/wordcounter.png"
 const center = {textAlign: "center"}
@@ -153,6 +153,25 @@ export default function Home(props) {
                                 })
                             }}>
                             Copy to Clipboard
+                        </Button>
+                        <Button
+                            icon={<Download />}
+                            auto
+                            onClick={() => {
+                                // Credit to https://www.codegrepper.com/code-examples/javascript/javascript+download+text+as+txt+file for this snippet
+                                const element = document.createElement("a")
+                                element.setAttribute(
+                                    "href",
+                                    "data:text/plain;charset=utf-8," +
+                                        encodeURIComponent(text)
+                                )
+                                element.setAttribute("download", "wordcounter")
+                                element.style.display = "none"
+                                document.body.appendChild(element)
+                                element.click()
+                                document.body.removeChild(element)
+                            }}>
+                            Download Text File
                         </Button>
                         <Note
                             small

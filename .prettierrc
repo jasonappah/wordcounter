@@ -1,4 +1,5 @@
 {
+
     "printWidth": 90,
     "tabWidth": 4,
     "useTabs": false,
@@ -11,4 +12,5 @@
     "requirePragma": false,
     "insertPragma": false,
     "proseWrap": "always"
+
 }

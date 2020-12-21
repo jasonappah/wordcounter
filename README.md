@@ -6,7 +6,7 @@ To do:
 
 - [x] Make it work hehe
 - [ ] Add Export to GitHub gist
-- [ ] Add Export to .txt file
+- [x] Add Export to .txt file
 
 Try it out at [wc.jasonaa.me](https://wc.jasonaa.me)!
 

@@ -1,83 +1,83 @@
 // lol this whole thing probably could be done in react but ssr go brrr
 
-import Head from "next/head";
-import { useState } from "react";
+import Head from 'next/head'
+import { useState } from 'react'
 import {
-	Page,
-	Textarea,
-	Text,
-	Link,
-	Grid,
-	Spacer,
-	Button,
-	useToasts,
-	useClipboard,
-	Toggle,
-	Col,
-	User,
-	Note,
-	useTheme,
-	Row,
-} from "@geist-ui/react";
-import { Copy, Download, Github } from "@geist-ui/react-icons";
+  Page,
+  Textarea,
+  Text,
+  Link,
+  Grid,
+  Spacer,
+  Button,
+  useToasts,
+  useClipboard,
+  Toggle,
+  Col,
+  User,
+  Note,
+  useTheme,
+  Row
+} from '@geist-ui/react'
+import { Copy, Download, Github } from '@geist-ui/react-icons'
 
 const metaImg =
-	"https://f000.backblazeb2.com/file/jasonaa-static/img/wordcounter.png";
-const center = { textAlign: "center" };
+	'https://f000.backblazeb2.com/file/jasonaa-static/img/wordcounter.png'
+const center = { textAlign: 'center' }
 
-function getTheme() {
-	if (typeof Storage !== "undefined") {
-		// can use window.localStorage, so use the set value if it exists
-		if (localStorage.getItem("preferredTheme") === "dark") return "dark";
-	}
-	return "light";
+function getTheme () {
+  if (typeof Storage !== 'undefined') {
+    // can use window.localStorage, so use the set value if it exists
+    if (localStorage.getItem('preferredTheme') === 'dark') return 'dark'
+  }
+  return 'light'
 }
 
-export default function Home(props) {
-	const [, setToast] = useToasts();
-	const theme = useTheme();
-	const { copy } = useClipboard();
-	const defaultStats = getStatsFromStorage() || {
-		chars: 0,
-		words: 0,
-		sentences: 0,
-	};
+export default function Home (props) {
+  const [, setToast] = useToasts()
+  const theme = useTheme()
+  const { copy } = useClipboard()
+  const defaultStats = getStatsFromStorage() || {
+    chars: 0,
+    words: 0,
+    sentences: 0
+  }
 
-	const [text, setText] = useState(getTextFromStorage() || "");
-	const [textStats, setStats] = useState(defaultStats);
-	function onChange(e) {
-		const temp = e.target.value;
-		setText(temp);
-		localStorage.setItem("text", temp);
-		const tmp = temp.split(/([A-z])+/) || [];
-		setStats({
-			chars: temp.length,
-			// i love/hate regex but its kinda cool when it works.
-			// s/o https://regexr.com/
-			words: (tmp.length - 1) / 2,
-			sentences: (temp.split(/(!+|\?+|\.+)/).length - 1) / 2,
-		});
-		localStorage.setItem("stats", JSON.stringify(textStats));
-	}
+  const [text, setText] = useState(getTextFromStorage() || '')
+  const [textStats, setStats] = useState(defaultStats)
+  function onChange (e) {
+    const temp = e.target.value
+    setText(temp)
+    localStorage.setItem('text', temp)
+    const tmp = temp.split(/([A-z])+/) || []
+    setStats({
+      chars: temp.length,
+      // i love/hate regex but its kinda cool when it works.
+      // s/o https://regexr.com/
+      words: (tmp.length - 1) / 2,
+      sentences: (temp.split(/(!+|\?+|\.+)/).length - 1) / 2
+    })
+    localStorage.setItem('stats', JSON.stringify(textStats))
+  }
 
-	function getTextFromStorage() {
-		if (typeof window !== "undefined") {
-			return localStorage.getItem("text");
-		} else {
-			return "";
-		}
-	}
+  function getTextFromStorage () {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('text')
+    } else {
+      return ''
+    }
+  }
 
-	function getStatsFromStorage() {
-		if (typeof window !== "undefined") {
-			return JSON.parse(localStorage.getItem("stats"));
-		} else {
-			return "";
-		}
-	}
+  function getStatsFromStorage () {
+    if (typeof window !== 'undefined') {
+      return JSON.parse(localStorage.getItem('stats'))
+    } else {
+      return ''
+    }
+  }
 
-	return (
-		<Page dotBackdrop={getTheme === "light"}>
+  return (
+		<Page dotBackdrop={getTheme === 'light'}>
 			<Head>
 				<title>Word Counter</title>
 				<link rel="icon" href="/favicon.ico" />
@@ -121,7 +121,7 @@ export default function Home(props) {
 						every edit.
 					</Text>
 				</Page.Header>
-				<Page.Content style={{ padding: "calc(1pt * 2.5) 0" }}>
+				<Page.Content style={{ padding: 'calc(1pt * 2.5) 0' }}>
 					<Textarea
 						status="success"
 						id="textarea"
@@ -148,11 +148,11 @@ export default function Home(props) {
 							icon={<Copy />}
 							auto
 							onClick={() => {
-								copy(text);
-								setToast({
-									text: "Text copied.",
-									type: "success",
-								});
+							  copy(text)
+							  setToast({
+							    text: 'Text copied.',
+							    type: 'success'
+							  })
 							}}
 						>
 							Copy to Clipboard
@@ -161,17 +161,17 @@ export default function Home(props) {
 							icon={<Download />}
 							auto
 							onClick={() => {
-								// Credit to https://www.codegrepper.com/code-examples/javascript/javascript+download+text+as+txt+file for this snippet
-								var element = document.createElement("a");
-								element.setAttribute(
-									"href",
-									"data:text/plain;charset=utf-8," + encodeURIComponent(text)
-								);
-								element.setAttribute("download", "wordcounter");
-								element.style.display = "none";
-								document.body.appendChild(element);
-								element.click();
-								document.body.removeChild(element);
+							  // Credit to https://www.codegrepper.com/code-examples/javascript/javascript+download+text+as+txt+file for this snippet
+							  const element = document.createElement('a')
+							  element.setAttribute(
+							    'href',
+							    'data:text/plain;charset=utf-8,' + encodeURIComponent(text)
+							  )
+							  element.setAttribute('download', 'wordcounter')
+							  element.style.display = 'none'
+							  document.body.appendChild(element)
+							  element.click()
+							  document.body.removeChild(element)
 							}}
 						>
 							Download Text File
@@ -179,20 +179,20 @@ export default function Home(props) {
 						<Note
 							small
 							type="secondary"
-							label={"Theme"}
-							style={{ marginTop: "1em", width: "10em" }}
+							label={'Theme'}
+							style={{ marginTop: '1em', width: '10em' }}
 						>
 							<Spacer y={0.5} />
 							<Toggle
 								name="Dark Mode"
 								onChange={props.themeToggle}
-								initialChecked={props.currentTheme == "light" ? false : true}
+								initialChecked={props.currentTheme != 'light'}
 							/>
 						</Note>
 					</Grid.Container>
 				</Page.Content>
 
-				<Row justify="center" style={{ margin: "1em" }}>
+				<Row justify="center" style={{ margin: '1em' }}>
 					<User
 						src="https://gravatar.com/avatar/d35776f3bec9c6459903f6a3204b63e4"
 						name="Built by"
@@ -207,16 +207,16 @@ export default function Home(props) {
 				</Row>
 			</Col>
 		</Page>
-	);
+  )
 }
 
-function Info(props) {
-	const noun = props.noun || "";
-	const no = props.no || 0;
-	return (
+function Info (props) {
+  const noun = props.noun || ''
+  const no = props.no || 0
+  return (
 		<Text p b style={center}>
 			{no} {noun}
-			{no == 1 ? "" : "s"}.
+			{no == 1 ? '' : 's'}.
 		</Text>
-	);
+  )
 }

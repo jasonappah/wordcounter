@@ -1,13 +1,13 @@
-import { GeistProvider, CssBaseline } from '@geist-ui/react'
-import { useState } from 'react'
-import '../styles/globals.css'
+import {GeistProvider, CssBaseline} from "@geist-ui/react"
+import {useState} from "react"
+import "../styles/globals.css"
 
-function getTheme () {
-  if (typeof Storage !== 'undefined') {
-    // can use window.localStorage, so use the set value if it exists
-    if (localStorage.getItem('preferredTheme') === 'dark') return 'dark'
-  }
-  return 'light'
+function getTheme() {
+    if (typeof Storage !== "undefined") {
+        // can use window.localStorage, so use the set value if it exists
+        if (localStorage.getItem("preferredTheme") === "dark") return "dark"
+    }
+    return "light"
 }
 
 function MyApp ({ Component, pageProps }) {
@@ -27,6 +27,7 @@ function MyApp ({ Component, pageProps }) {
 			/>
 		</GeistProvider>
   )
+
 }
 
 export default MyApp

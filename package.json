@@ -1,25 +1,26 @@
 {
-  "name": "wordcounter",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@geist-ui/react": "^2.1.0-canary.2",
-    "@geist-ui/react-icons": "^1.0.1",
-    "next": "10.0.3",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
-  },
-  "devDependencies": {
-    "eslint": "^7.16.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.21.5"
-  }
+    "name": "wordcounter",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
+    },
+    "dependencies": {
+        "@geist-ui/react": "^2.1.0-canary.2",
+        "@geist-ui/react-icons": "^1.0.1",
+        "next": "10.0.3",
+        "react": "17.0.1",
+        "react-dom": "17.0.1"
+    },
+    "devDependencies": {
+        "eslint": "^7.16.0",
+        "eslint-config-standard": "^16.0.2",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^4.2.1",
+        "eslint-plugin-react": "^7.21.5",
+        "prettier": "2.2.1"
+    }
 }

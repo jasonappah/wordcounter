@@ -1,7 +1,7 @@
 // lol this whole thing probably could be done in react but ssr go brrr
 
-import Head from 'next/head'
-import { useState } from 'react'
+import Head from "next/head"
+import {useState} from "react"
 import {
   Page,
   Textarea,
@@ -25,56 +25,57 @@ const metaImg =
 	'https://f000.backblazeb2.com/file/jasonaa-static/img/wordcounter.png'
 const center = { textAlign: 'center' }
 
-function getTheme () {
-  if (typeof Storage !== 'undefined') {
-    // can use window.localStorage, so use the set value if it exists
-    if (localStorage.getItem('preferredTheme') === 'dark') return 'dark'
-  }
-  return 'light'
+
+function getTheme() {
+    if (typeof Storage !== "undefined") {
+        // can use window.localStorage, so use the set value if it exists
+        if (localStorage.getItem("preferredTheme") === "dark") return "dark"
+    }
+    return "light"
 }
 
-export default function Home (props) {
-  const [, setToast] = useToasts()
-  const theme = useTheme()
-  const { copy } = useClipboard()
-  const defaultStats = getStatsFromStorage() || {
-    chars: 0,
-    words: 0,
-    sentences: 0
-  }
-
-  const [text, setText] = useState(getTextFromStorage() || '')
-  const [textStats, setStats] = useState(defaultStats)
-  function onChange (e) {
-    const temp = e.target.value
-    setText(temp)
-    localStorage.setItem('text', temp)
-    const tmp = temp.split(/([A-z])+/) || []
-    setStats({
-      chars: temp.length,
-      // i love/hate regex but its kinda cool when it works.
-      // s/o https://regexr.com/
-      words: (tmp.length - 1) / 2,
-      sentences: (temp.split(/(!+|\?+|\.+)/).length - 1) / 2
-    })
-    localStorage.setItem('stats', JSON.stringify(textStats))
-  }
-
-  function getTextFromStorage () {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('text')
-    } else {
-      return ''
+export default function Home(props) {
+    const [, setToast] = useToasts()
+    const theme = useTheme()
+    const {copy} = useClipboard()
+    const defaultStats = getStatsFromStorage() || {
+        chars: 0,
+        words: 0,
+        sentences: 0
     }
-  }
 
-  function getStatsFromStorage () {
-    if (typeof window !== 'undefined') {
-      return JSON.parse(localStorage.getItem('stats'))
-    } else {
-      return ''
+    const [text, setText] = useState(getTextFromStorage() || "")
+    const [textStats, setStats] = useState(defaultStats)
+    function onChange(e) {
+        const temp = e.target.value
+        setText(temp)
+        localStorage.setItem("text", temp)
+        const tmp = temp.split(/([A-z])+/) || []
+        setStats({
+            chars: temp.length,
+            // i love/hate regex but its kinda cool when it works.
+            // s/o https://regexr.com/
+            words: (tmp.length - 1) / 2,
+            sentences: (temp.split(/(!+|\?+|\.+)/).length - 1) / 2
+        })
+        localStorage.setItem("stats", JSON.stringify(textStats))
     }
-  }
+
+    function getTextFromStorage() {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("text")
+        } else {
+            return ""
+        }
+    }
+
+    function getStatsFromStorage() {
+        if (typeof window !== "undefined") {
+            return JSON.parse(localStorage.getItem("stats"))
+        } else {
+            return ""
+        }
+    }
 
   return (
 		<Page dotBackdrop={getTheme === 'light'}>
@@ -91,6 +92,7 @@ export default function Home (props) {
 					name="description"
 					content="Keep track of your document's word count!"
 				/>
+
 
 				<meta property="og:type" content="website" />
 				<meta property="og:url" content="https://wc.jasonaa.me/" />
@@ -219,4 +221,5 @@ function Info (props) {
 			{no == 1 ? '' : 's'}.
 		</Text>
   )
+
 }

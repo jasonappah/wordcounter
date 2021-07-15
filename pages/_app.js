@@ -1,12 +1,12 @@
 import {GeistProvider, CssBaseline} from "@geist-ui/react"
 import {useState, useEffect} from "react"
 import "../styles/globals.css"
-import 'inter-ui/inter.css'
+import "inter-ui/inter.css"
 import {Page, Text, Link, Button} from "@geist-ui/react"
 import {Github} from "@geist-ui/react-icons"
 import {getTheme, savePreferredTheme} from "../lib"
 function MyApp({Component, pageProps}) {
-    const [themeType, setThemeType] = useState('dark')
+    const [themeType, setThemeType] = useState("dark")
     const [display, setDisplay] = useState(false)
     const switchThemes = () => {
         const newTheme = themeType === "dark" ? "light" : "dark"

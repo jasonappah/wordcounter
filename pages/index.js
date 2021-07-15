@@ -32,8 +32,8 @@ export default function Home({currentTheme, themeToggle}) {
     const [, setToast] = useToasts()
     const {copy} = useClipboard()
     useEffect(() => {
-        setStats(()=>getStatsFromStorage())
-        setText(()=>getTextFromStorage())
+        setStats(() => getStatsFromStorage())
+        setText(() => getTextFromStorage())
     }, [])
 
     const [text, setText] = useState("")

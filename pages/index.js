@@ -46,7 +46,9 @@ export default function Home({currentTheme, themeToggle}) {
         const temp = e.target.value
         setText(temp)
         saveText(temp)
-        const tmp = temp.split(/([A-z])+/) || []
+
+        // const tmp = temp.split(/([A-z])+/) || []
+        const tmp = temp.split(/([\S])+/) || []
         setStats({
             chars: temp.length,
             // i love/hate regex but its kinda cool when it works.

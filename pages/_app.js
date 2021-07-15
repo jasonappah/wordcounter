@@ -1,32 +1,46 @@
 import {GeistProvider, CssBaseline} from "@geist-ui/react"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 import "../styles/globals.css"
-
-function getTheme() {
-    if (typeof Storage !== "undefined") {
-        // can use window.localStorage, so use the set value if it exists
-        if (localStorage.getItem("preferredTheme") === "dark") return "dark"
-    }
-    return "light"
-}
-
+import 'inter-ui/inter.css'
+import {Page, Text, Link, Button} from "@geist-ui/react"
+import {Github} from "@geist-ui/react-icons"
+import {getTheme, savePreferredTheme} from "../lib"
 function MyApp({Component, pageProps}) {
-    const [themeType, setThemeType] = useState(getTheme())
+    const [themeType, setThemeType] = useState('dark')
+    const [display, setDisplay] = useState(false)
     const switchThemes = () => {
         const newTheme = themeType === "dark" ? "light" : "dark"
         setThemeType(newTheme)
-        if (typeof Storage !== "undefined") {
-            window.localStorage.setItem("preferredTheme", newTheme)
-        }
+        savePreferredTheme(newTheme)
     }
+    useEffect(() => {
+        setDisplay(true)
+        setThemeType(getTheme())
+    }, [])
+
     return (
-        <GeistProvider theme={{type: themeType}}>
+        <GeistProvider themeType={themeType}>
             <CssBaseline />
-            <Component
-                {...pageProps}
-                themeToggle={switchThemes}
-                currentTheme={themeType}
-            />
+            {display ? (
+                <Component
+                    {...pageProps}
+                    themeToggle={switchThemes}
+                    currentTheme={themeType}
+                />
+            ) : (
+                <noscript>
+                    <Page>
+                        <Text h3>
+                            You need JavaScript enabled to use this application :/
+                        </Text>
+                        <Link href="https://github.com/jasonappah/wordcounter">
+                            <Button iconRight={<Github />} auto>
+                                View source on GitHub
+                            </Button>
+                        </Link>
+                    </Page>
+                </noscript>
+            )}
         </GeistProvider>
     )
 }

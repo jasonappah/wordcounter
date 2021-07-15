@@ -1,7 +1,7 @@
 // lol this whole thing probably could be done in react but ssr go brrr
 
 import Head from "next/head"
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {
     Page,
     Textarea,
@@ -16,38 +16,36 @@ import {
     Col,
     User,
     Note,
-    useTheme,
     Row
 } from "@geist-ui/react"
 import {Copy, Download, Github} from "@geist-ui/react-icons"
 
-const metaImg = "https://f000.backblazeb2.com/file/jasonaa-static/img/wordcounter.png"
 const center = {textAlign: "center"}
-
-function getTheme() {
-    if (typeof Storage !== "undefined") {
-        // can use window.localStorage, so use the set value if it exists
-        if (localStorage.getItem("preferredTheme") === "dark") return "dark"
-    }
-    return "light"
-}
-
-export default function Home(props) {
+import {
+    getTheme,
+    saveStats,
+    getTextFromStorage,
+    getStatsFromStorage,
+    saveText
+} from "../lib"
+export default function Home({currentTheme, themeToggle}) {
     const [, setToast] = useToasts()
-    const theme = useTheme()
     const {copy} = useClipboard()
-    const defaultStats = getStatsFromStorage() || {
+    useEffect(() => {
+        setStats(()=>getStatsFromStorage())
+        setText(()=>getTextFromStorage())
+    }, [])
+
+    const [text, setText] = useState("")
+    const [textStats, setStats] = useState({
         chars: 0,
         words: 0,
         sentences: 0
-    }
-
-    const [text, setText] = useState(getTextFromStorage() || "")
-    const [textStats, setStats] = useState(defaultStats)
+    })
     function onChange(e) {
         const temp = e.target.value
         setText(temp)
-        localStorage.setItem("text", temp)
+        saveText(temp)
         const tmp = temp.split(/([A-z])+/) || []
         setStats({
             chars: temp.length,
@@ -56,34 +54,19 @@ export default function Home(props) {
             words: (tmp.length - 1) / 2,
             sentences: (temp.split(/(!+|\?+|\.+)/).length - 1) / 2
         })
-        localStorage.setItem("stats", JSON.stringify(textStats))
-    }
-
-    function getTextFromStorage() {
-        if (typeof window !== "undefined") {
-            return localStorage.getItem("text")
-        } else {
-            return ""
-        }
-    }
-
-    function getStatsFromStorage() {
-        if (typeof window !== "undefined") {
-            return JSON.parse(localStorage.getItem("stats"))
-        } else {
-            return ""
-        }
+        saveStats(textStats)
     }
 
     return (
-        <Page dotBackdrop={getTheme === "light"}>
+        <Page dotBackdrop={getTheme() === "light"}>
             <Head>
                 <title>Word Counter</title>
                 <link rel="icon" href="/favicon.ico" />
-                <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+                <link rel="preconnect" href="https://fonts.gstatic.com" />
                 <link
                     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
-                    rel="stylesheet"></link>
+                    rel="stylesheet"
+                />
                 <meta name="title" content="Word Counter" />
                 <meta
                     name="description"
@@ -97,7 +80,7 @@ export default function Home(props) {
                     property="og:description"
                     content="Keep track of your document's word count!"
                 />
-                <meta property="og:image" content={metaImg} />
+                <meta property="og:image" content={process.env.NEXT_PUBLIC_META_IMG} />
 
                 <meta property="twitter:card" content="summary_large_image" />
                 <meta property="twitter:url" content="https://wc.jasonaa.me/" />
@@ -106,7 +89,10 @@ export default function Home(props) {
                     property="twitter:description"
                     content="Keep track of your document's word count!"
                 />
-                <meta property="twitter:image" content={metaImg} />
+                <meta
+                    property="twitter:image"
+                    content={process.env.NEXT_PUBLIC_META_IMG}
+                />
             </Head>
             <Col align="middle">
                 <Page.Header>
@@ -114,9 +100,9 @@ export default function Home(props) {
                         Word Count.
                     </Text>
                     <Text p style={center}>
-                        Enter your text below and see your current word count! Don't worry
-                        about saving - text will auto-save to your browser's storage after
-                        every edit.
+                        Enter your text below and see your current word count! Don&apos;t
+                        worry about saving - text will auto-save to your browser&apos;s
+                        storage after every edit.
                     </Text>
                 </Page.Header>
                 <Page.Content style={{padding: "calc(1pt * 2.5) 0"}}>
@@ -166,10 +152,7 @@ export default function Home(props) {
                                         encodeURIComponent(text)
                                 )
                                 element.setAttribute("download", "wordcounter")
-                                element.style.display = "none"
-                                document.body.appendChild(element)
                                 element.click()
-                                document.body.removeChild(element)
                             }}>
                             Download Text File
                         </Button>
@@ -181,8 +164,8 @@ export default function Home(props) {
                             <Spacer y={0.5} />
                             <Toggle
                                 name="Dark Mode"
-                                onChange={props.themeToggle}
-                                initialChecked={props.currentTheme != "light"}
+                                onChange={themeToggle}
+                                initialChecked={currentTheme !== "light"}
                             />
                         </Note>
                     </Grid.Container>
@@ -205,13 +188,11 @@ export default function Home(props) {
     )
 }
 
-function Info(props) {
-    const noun = props.noun || ""
-    const no = props.no || 0
+function Info({noun, no}) {
     return (
-        <Text p b style={center}>
-            {no} {noun}
-            {no == 1 ? "" : "s"}.
+        <Text p b style={{...center, width: "100%"}}>
+            {no || 0} {noun || ""}
+            {no === 1 ? "" : "s"}.
         </Text>
     )
 }

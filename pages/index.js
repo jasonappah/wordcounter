@@ -32,8 +32,22 @@ export default function Home({currentTheme, themeToggle}) {
     const [, setToast] = useToasts()
     const {copy} = useClipboard()
     useEffect(() => {
-        setStats(() => getStatsFromStorage())
-        setText(() => getTextFromStorage())
+        const newText = getTextFromStorage()
+        if (newText) setText(newText)
+
+        const newStats = getStatsFromStorage()
+        if (newStats) setStats(newStats)
+        else if (!newStats && newText) {
+            const newStats = {
+                chars: newText.length,
+                // i love/hate regex but its kinda cool when it works.
+                // s/o https://regexr.com/
+                words: ((newText.split(/([\S])+/) || []).length - 1) / 2,
+                sentences: (newText.split(/(!+|\?+|\.+)/).length - 1) / 2
+            }
+            setStats(newStats)
+            saveStats(newStats)
+        }
     }, [])
 
     const [text, setText] = useState("")
@@ -49,14 +63,15 @@ export default function Home({currentTheme, themeToggle}) {
 
         // const tmp = temp.split(/([A-z])+/) || []
         const tmp = temp.split(/([\S])+/) || []
-        setStats({
+        const newStats = {
             chars: temp.length,
             // i love/hate regex but its kinda cool when it works.
             // s/o https://regexr.com/
             words: (tmp.length - 1) / 2,
             sentences: (temp.split(/(!+|\?+|\.+)/).length - 1) / 2
-        })
-        saveStats(textStats)
+        }
+        setStats(newStats)
+        saveStats(newStats)
     }
 
     return (

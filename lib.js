@@ -27,7 +27,7 @@ export function saveStats(stats) {
 }
 
 export function getTextFromStorage() {
-    if (typeof window !== "undefined") {
+    if (typeof Storage !== "undefined") {
         return localStorage.getItem("text")
     } else {
         return ""
@@ -35,10 +35,14 @@ export function getTextFromStorage() {
 }
 
 export function getStatsFromStorage() {
-    if (typeof window !== "undefined") {
+    if (typeof Storage !== "undefined") {
         return JSON.parse(localStorage.getItem("stats"))
     } else {
-        return ""
+        return {
+            chars: 0,
+            words: 0,
+            sentences: 0
+        }
     }
 }
 
